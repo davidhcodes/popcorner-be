@@ -35,13 +35,11 @@ exports.fetchUserId = (id) => {
   });
 };
 
-
 exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth, interests) => {
   return new Promise((resolve, reject) => {
-    const usersRef = ref(db, "users");
-    const newUserRef = push(usersRef);
+    const usersRef = ref(db, `users/${username}`);
 
-    set(newUserRef, {
+    set(usersRef, {
       username,
       avatar,
       firstName,
@@ -51,8 +49,7 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
       interests,
     })
       .then(() => {
-        const newUserId = newUserRef.key;
-        resolve(newUserId);
+        resolve(username);
       })
       .catch((error) => {
         reject(error);
@@ -61,27 +58,22 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
 };
 
 exports.fetchCommunities = (communities) => {
-  if(!(communities)){
+  if (!communities) {
     return Promise.reject({
       status: 400,
-      msg:'Bad Request'
+      msg: "Bad Request",
     });
   }
   const communities = ref(db, "communities");
   return get(query(communities)).then((data) => {
-    if(data.exists()) {
-      const communities = []
+    if (data.exists()) {
+      const communities = [];
       data.forEach((community) => {
-        communities.push(community)
+        communities.push(community);
       });
       return communities;
     } else {
-      return []
+      return [];
     }
-  })
-    
-}
-
-
-
-
+  });
+};
