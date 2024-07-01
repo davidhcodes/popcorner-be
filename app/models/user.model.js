@@ -34,8 +34,8 @@ const fetchUserName =(userName) => {
         }
   })
 
-}
+};
 
-module.exports {fetchUserName}
+module.exports = {fetchUserName}
 
 
