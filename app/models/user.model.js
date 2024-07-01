@@ -17,24 +17,24 @@ exports.getAllUsers = () => {
     }
   });
 };
-const fetchUserName =(userName) => {
-  if(!(userName)){
+exports.fetchUserId = (id) => {
+  if (!id) {
     return Promise.reject({
-      status : 400,
-      msg: 'Bad Request'
+      status: 400,
+      msg: "Bad Request",
     });
   }
-  const userName = ref(db, `users/${userName}`)
+  const userId = ref(db, `users/${id}`);
 
-  return get(query(userName)).then((data) => {
-    if(data.exists()){
-      return data
-        } else {
-          return {}
-        }
-  })
-
+  return get(query(userId)).then((data) => {
+    if (data.exists()) {
+      return data;
+    } else {
+      return {};
+    }
+  });
 };
+
 const fetchCommunities = (communities) => {
   if(!(communities)){
     return Promise.reject({
@@ -58,5 +58,6 @@ const fetchCommunities = (communities) => {
 }
 
 module.exports = {fetchUserName, fetchCommunities}
+
 
 

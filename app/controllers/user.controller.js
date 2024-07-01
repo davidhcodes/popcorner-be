@@ -1,5 +1,5 @@
-const { getAllUsers, fetchUserName, fetchCommunities } = require("../models/user.model");
 
+const { getAllUsers, fetchUserId, fetchCommunities } = require("../models/user.model");
 
 
 exports.getUsers = (req, res) => {
@@ -8,11 +8,6 @@ exports.getUsers = (req, res) => {
   });
 };
 
-exports.getUserName = (req, res) => {
-  fetchUserName(req.params.username)
-  .then((user) => {
-    res.status(200).json({ user })
-  })
 }
 exports.getCommunities = (req, res) => {
   fetchCommunities(req.params.communities).then((communities) => {
@@ -20,3 +15,10 @@ exports.getCommunities = (req, res) => {
   })
 }
 
+
+exports.getUserbyId = (req, res) => {
+  console.log(req.params.id);
+  fetchUserId(req.params.id).then((user) => {
+    res.status(200).send({ user });
+  });
+};
