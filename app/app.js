@@ -1,12 +1,12 @@
 const express = require("express");
 const cors = require("cors");
-const { getUsers } = require("./controllers/user.controller");
+const { getUsers, getUserbyId } = require("./controllers/user.controller");
 
 const app = express();
 app.use(cors());
 
 app.get("/users", getUsers);
 
-app.get("/users/:id", gerUsersId)
+app.get("/users/:id", getUserbyId);
 
 module.exports = app;
