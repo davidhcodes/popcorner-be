@@ -1,6 +1,5 @@
 const { getAllUsers, fetchUserId, addNewUser, fetchCommunities } = require("../models/user.model");
 
-
 exports.getUsers = (req, res) => {
   getAllUsers().then((users) => {
     res.status(200).json(users);
@@ -10,10 +9,9 @@ exports.getUsers = (req, res) => {
 
 exports.getCommunities = (req, res) => {
   fetchCommunities(req.params.communities).then((communities) => {
-    res.status(200).json(communities)
-  })
-}
-
+    res.status(200).json(communities);
+  });
+};
 
 exports.getUserbyId = (req, res) => {
   fetchUserId(req.params.id).then((user) => {
