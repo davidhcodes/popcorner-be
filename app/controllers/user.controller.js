@@ -6,6 +6,7 @@ exports.getUsers = (req, res) => {
   });
 };
 
+
 exports.getCommunities = (req, res) => {
   fetchCommunities(req.params.communities).then((communities) => {
     res.status(200).json(communities);
@@ -24,3 +25,11 @@ exports.addUser = (req, res) => {
     res.status(201).send({ msg: `user ${userId} created` });
   });
 };
+
+
+exports.addCommunity = (req, res) => {
+  const { author, commentCount, votes, comments} = req.body;
+  addNewCommunity( author, commentCount, votes, comments).then((communityName) => {
+    res.status(201).send({ msg: `community ${communityName} created`})
+  })
+}

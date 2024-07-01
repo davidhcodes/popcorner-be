@@ -75,5 +75,36 @@ exports.fetchCommunities = (communities) => {
     } else {
       return [];
     }
+
+  })
+    
+}
+
+exports.addNewCommunity = (author, commentCount, votes, comments) => {
+  return new Promise((resolve,reject) => {
+    const communityRef = ref(db, "communities");
+    const newCommunityRef = push(communityRef);
+
+    set(newCommunityRef, {
+      author,
+      commentCount,
+      votes,
+      comments
+    })
+    .then(() => {
+      const newCommunityId = newCommunityRef.key;
+      resolve(newCommunityId)
+    })
+    .catch((error) => {
+      reject(error);
+    })
+  })
+}
+
+
+
+
+
   });
 };
+
