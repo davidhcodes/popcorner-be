@@ -39,6 +39,10 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
   return new Promise((resolve, reject) => {
     const usersRef = ref(db, `users/${username}`);
 
+    if (!avatar) {
+      avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UdkG68P9AHESMfKJ-2Ybi9pfnqX1tqx3wQ&s";
+    }
+
     set(usersRef, {
       username,
       avatar,
@@ -64,8 +68,8 @@ exports.fetchCommunities = (communities) => {
       msg: "Bad Request",
     });
   }
-  const communities = ref(db, "communities");
-  return get(query(communities)).then((data) => {
+  const communitiesRef = ref(db, "communities");
+  return get(query(communitiesRef)).then((data) => {
     if (data.exists()) {
       const communities = [];
       data.forEach((community) => {

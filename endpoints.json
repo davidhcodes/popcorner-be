@@ -1,0 +1,110 @@
+{
+  "GET /users": {
+    "description": "serves an array of all users",
+    "queries": [],
+    "exampleResponse": [
+      {
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UdkG68P9AHESMfKJ-2Ybi9pfnqX1tqx3wQ&s",
+        "cinemas": {
+          "cin001": "Colchester Vue"
+        },
+        "communities": {
+          "com001": "goth-disney"
+        },
+        "dateOfBirth": "1985-09-25 17:45:30.005",
+        "email": "davidMartin66@email.com”",
+        "events": {
+          "ev001": "Jurassic World Durham Odeon",
+          "ev002": "Chicken Little Colchester Vue"
+        },
+        "firstName": "David",
+        "interests": {
+          "01": "horror",
+          "02": "Quentin Tarantino",
+          "03": "Jennifer Lawrence"
+        },
+        "isBannedFrom": {
+          "ev006": "Wonder Woman Rutland Ciniplex "
+        },
+        "lastName": "Martin",
+        "moderator": {
+          "isModerator": false,
+          "moderatorOf": {
+            "cin001": "Colchester Vue",
+            "com001": "goth-disney"
+          }
+        },
+        "username": "davidMartin66"
+      },
+      {
+        "avatar": "https://example.com/avatar.jpg",
+        "dateOfBirth": "1990-01-01",
+        "email": "test@example.com",
+        "firstName": "Test",
+        "interests": {
+          "interest1": "coding",
+          "interest2": "movies",
+          "interest3": "music"
+        },
+        "lastName": "User",
+        "username": "testUser123"
+      }
+    ]
+  },
+  "GET user/:username": {
+    "description": "responds with an object for a specific user",
+    "queries": [],
+    "exampleResponse": {
+      "user": {
+        "avatar": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UdkG68P9AHESMfKJ-2Ybi9pfnqX1tqx3wQ&s",
+        "cinemas": {
+          "cin001": "Colchester Vue"
+        },
+        "communities": {
+          "com001": "goth-disney"
+        },
+        "dateOfBirth": "1985-09-25 17:45:30.005",
+        "email": "davidMartin66@email.com”",
+        "events": {
+          "ev001": "Jurassic World Durham Odeon",
+          "ev002": "Chicken Little Colchester Vue"
+        },
+        "firstName": "David",
+        "interests": {
+          "01": "horror",
+          "02": "Quentin Tarantino",
+          "03": "Jennifer Lawrence"
+        },
+        "isBannedFrom": {
+          "ev006": "Wonder Woman Rutland Ciniplex "
+        },
+        "lastName": "Martin",
+        "moderator": {
+          "isModerator": false,
+          "moderatorOf": {
+            "cin001": "Colchester Vue",
+            "com001": "goth-disney"
+          }
+        },
+        "username": "davidMartin66"
+      }
+    }
+  },
+  "POST /users": {
+    "description": "Creates a new user and adds it to the firebase",
+    "queries": [],
+    "examplePostBody": {
+      "username": "user123",
+      "avatar": "avatarurl.com",
+      "firstName": "Bill",
+      "lastName": "Gaytes",
+      "email": "name@domain.com",
+      "dateOfBirth": "1990-01-01",
+      "interests": {
+        "01": "coding",
+        "02": "Lizard stuff",
+        "03": "Sausage parties"
+      }
+    }
+  }
+}
