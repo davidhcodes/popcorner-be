@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-const { getUsers, getUserbyId, addUser } = require("./controllers/user.controller");
+const { getUsers, getUserbyId, addUser, addCommunity } = require("./controllers/user.controller");
 
 
 
@@ -11,10 +11,12 @@ app.use(express.json());
 
 app.get("/users", getUsers);
 
-app.get("/users/communities", getCommunities)
+app.get("/communities", getCommunities)
 
 app.get("/users/:id", getUserbyId);
 
 app.post("/users", addUser);
+
+app.post("/communities", addCommunity);
 
 module.exports = app;
