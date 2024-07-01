@@ -35,7 +35,28 @@ const fetchUserName =(userName) => {
   })
 
 };
+const fetchCommunities = (communities) => {
+  if(!(communities)){
+    return Promise.reject({
+      status: 400,
+      msg:'Bad Request'
+    });
+  }
+  const communities = ref(db, "communities");
+  return get(query(communities)).then((data) => {
+    if(data.exists()) {
+      const communities = []
+      data.forEach((community) => {
+        communities.push(community)
+      });
+      return communities;
+    } else {
+      return []
+    }
+  })
+    
+}
 
-module.exports = {fetchUserName}
+module.exports = {fetchUserName, fetchCommunities}
 
 
