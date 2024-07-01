@@ -1,6 +1,6 @@
 // models/user.model.js
 const { db } = require("../../firebase");
-const { ref, get, query, orderByKey } = require("firebase/database");
+const { ref, get, query, orderByKey, push, set } = require("firebase/database");
 
 exports.getAllUsers = () => {
   const usersRef = ref(db, "users");
@@ -35,7 +35,32 @@ exports.fetchUserId = (id) => {
   });
 };
 
-const fetchCommunities = (communities) => {
+
+exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth, interests) => {
+  return new Promise((resolve, reject) => {
+    const usersRef = ref(db, "users");
+    const newUserRef = push(usersRef);
+
+    set(newUserRef, {
+      username,
+      avatar,
+      firstName,
+      lastName,
+      email,
+      dateOfBirth,
+      interests,
+    })
+      .then(() => {
+        const newUserId = newUserRef.key;
+        resolve(newUserId);
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.fetchCommunities = (communities) => {
   if(!(communities)){
     return Promise.reject({
       status: 400,
@@ -57,7 +82,6 @@ const fetchCommunities = (communities) => {
     
 }
 
-module.exports = {fetchUserName, fetchCommunities}
 
 
 
