@@ -7,4 +7,6 @@ app.use(cors());
 
 app.get("/users", getUsers);
 
+app.get("/users/:id", gerUsersId)
+
 module.exports = app;
