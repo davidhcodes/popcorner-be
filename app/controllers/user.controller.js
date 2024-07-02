@@ -27,8 +27,8 @@ exports.getUserbyUsername = (req, res) => {
 };
 
 exports.addUser = (req, res) => {
-  const { username, avatar, firstName, lastName, email, dateOfBirth, interests } = req.body;
-  addNewUser(username, avatar, firstName, lastName, email, dateOfBirth, interests).then((userId) => {
+  const { username, avatar, firstName, lastName, email, dateOfBirth, interests, password } = req.body;
+  addNewUser(username, avatar, firstName, lastName, email, dateOfBirth, interests, password).then((userId) => {
     res.status(201).send({ msg: `user ${userId} created` });
   });
 };

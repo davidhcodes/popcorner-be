@@ -100,6 +100,7 @@
       "lastName": "Gaytes",
       "email": "name@domain.com",
       "dateOfBirth": "1990-01-01",
+      "password": "abc123",
       "interests": {
         "01": "coding",
         "02": "Lizard stuff",

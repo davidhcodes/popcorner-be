@@ -38,7 +38,7 @@ exports.fetchUser = (username) => {
   });
 };
 
-exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth, interests) => {
+exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth, interests, password) => {
   return new Promise((resolve, reject) => {
     const usersRef = ref(db, `users/${username}`);
 
@@ -54,6 +54,7 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
       email,
       dateOfBirth,
       interests,
+      password,
     })
       .then(() => {
         resolve(username);
