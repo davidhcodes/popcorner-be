@@ -99,3 +99,27 @@ exports.addNewCommunity = (title, description, logo, moderators) => {
       });
   });
 };
+
+exports.fetchEvents = (title) => {
+  if (!title) {
+    return Promise.reject({
+      status: 400,
+      msg: "Bad Request",
+    });
+  }
+  const eventRef = ref(db, `communities/${title}/events`);
+  return get(query(eventRef, orderByKey())).then((data) => {
+    if (data.exists()) {
+      const events = [];
+      data.forEach((eventData) => {
+        const event = eventData.val();
+        const eventObj = {};
+        eventObj[eventData.key] = event;
+        events.push(eventObj);
+      });
+      return events;
+    } else {
+      return [];
+    }
+  });
+};
