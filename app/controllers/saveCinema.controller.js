@@ -36,4 +36,4 @@ const saveCinemasToFirebase = async (location, radius) => {
 });
 };
 
-module.exports = saveCinemasToFirebase
+module.exports = { saveCinemasToFirebase }

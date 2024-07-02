@@ -1,15 +1,16 @@
 const express = require("express");
 const cors = require("cors");
 const { saveCinemasToFirebase } = require("./controllers/saveCinema.controller")
+const { getCinemas } = require("./controllers/getCinemas.controller")
 
 const {
-  getUsers,
-  getUserbyUsername,
-  addUser,
-  addCommunity,
-  getCommunities,
-  getEvents,
-  addEvent,
+    getUsers,
+    getUserbyUsername,
+    addUser,
+    addCommunity,
+    getCommunities,
+    getEvents,
+    addEvent,
 } = require("./controllers/user.controller");
 
 const app = express();
@@ -23,6 +24,8 @@ app.get("/communities", getCommunities);
 app.get("/users/:username", getUserbyUsername);
 
 app.get("/communities/:title/events", getEvents);
+
+app.get("/cinemas", getCinemas)
 
 app.post("/users", addUser);
 
