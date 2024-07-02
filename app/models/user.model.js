@@ -8,8 +8,11 @@ exports.getAllUsers = () => {
   return get(query(usersRef, orderByKey())).then((data) => {
     if (data.exists()) {
       const users = [];
-      data.forEach((user) => {
-        users.push(user);
+      data.forEach((userData) => {
+        const user = userData.val();
+        const userObj = {};
+        userObj[userData.key] = user;
+        users.push(userObj);
       });
       return users;
     } else {
@@ -63,11 +66,14 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
 
 exports.fetchCommunities = () => {
   const communitiesRef = ref(db, "communities");
-  return get(query(communitiesRef)).then((data) => {
+  return get(query(communitiesRef, orderByKey())).then((data) => {
     if (data.exists()) {
       const communities = [];
-      data.forEach((community) => {
-        communities.push(community);
+      data.forEach((communityData) => {
+        const community = communityData.val();
+        const communityObj = {};
+        communityObj[communityData.key] = community;
+        communities.push(communityObj);
       });
       return communities;
     } else {
@@ -76,20 +82,17 @@ exports.fetchCommunities = () => {
   });
 };
 
-exports.addNewCommunity = (author, commentCount, votes, comments) => {
+exports.addNewCommunity = (title, description, logo, moderators) => {
   return new Promise((resolve, reject) => {
-    const communityRef = ref(db, "communities");
-    const newCommunityRef = push(communityRef);
-
-    set(newCommunityRef, {
-      author,
-      commentCount,
-      votes,
-      comments,
+    const communityRef = ref(db, `communities/${title}`);
+    set(communityRef, {
+      title,
+      description,
+      logo,
+      moderators,
     })
       .then(() => {
-        const newCommunityId = newCommunityRef.key;
-        resolve(newCommunityId);
+        resolve(title);
       })
       .catch((error) => {
         reject(error);

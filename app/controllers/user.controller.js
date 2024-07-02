@@ -1,4 +1,4 @@
-const { getAllUsers, fetchUser, addNewUser, fetchCommunities } = require("../models/user.model");
+const { getAllUsers, fetchUser, addNewUser, fetchCommunities, addNewCommunity } = require("../models/user.model");
 
 exports.getUsers = (req, res) => {
   getAllUsers().then((users) => {
@@ -7,7 +7,7 @@ exports.getUsers = (req, res) => {
 };
 
 exports.getCommunities = (req, res) => {
-  fetchCommunities(req.params.communities).then((communities) => {
+  fetchCommunities().then((communities) => {
     res.status(200).json(communities);
   });
 };
@@ -26,8 +26,8 @@ exports.addUser = (req, res) => {
 };
 
 exports.addCommunity = (req, res) => {
-  const { author, commentCount, votes, comments } = req.body;
-  addNewCommunity(author, commentCount, votes, comments).then((communityName) => {
+  const { title, description, logo, moderators } = req.body;
+  addNewCommunity(title, description, logo, moderators).then((communityName) => {
     res.status(201).send({ msg: `community ${communityName} created` });
   });
 };
