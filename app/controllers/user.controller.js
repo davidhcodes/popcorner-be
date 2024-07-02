@@ -1,4 +1,4 @@
-const { getAllUsers, fetchUserId, addNewUser, fetchCommunities } = require("../models/user.model");
+const { getAllUsers, fetchUser, addNewUser, fetchCommunities } = require("../models/user.model");
 
 exports.getUsers = (req, res) => {
   getAllUsers().then((users) => {
@@ -6,15 +6,14 @@ exports.getUsers = (req, res) => {
   });
 };
 
-
 exports.getCommunities = (req, res) => {
   fetchCommunities(req.params.communities).then((communities) => {
     res.status(200).json(communities);
   });
 };
 
-exports.getUserbyId = (req, res) => {
-  fetchUserId(req.params.id).then((user) => {
+exports.getUserbyUsername = (req, res) => {
+  fetchUser(req.params.id).then((user) => {
     res.status(200).send({ user });
   });
 };
@@ -26,10 +25,9 @@ exports.addUser = (req, res) => {
   });
 };
 
-
 exports.addCommunity = (req, res) => {
-  const { author, commentCount, votes, comments} = req.body;
-  addNewCommunity( author, commentCount, votes, comments).then((communityName) => {
-    res.status(201).send({ msg: `community ${communityName} created`})
-  })
-}
+  const { author, commentCount, votes, comments } = req.body;
+  addNewCommunity(author, commentCount, votes, comments).then((communityName) => {
+    res.status(201).send({ msg: `community ${communityName} created` });
+  });
+};

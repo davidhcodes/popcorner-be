@@ -17,16 +17,16 @@ exports.getAllUsers = () => {
     }
   });
 };
-exports.fetchUserId = (id) => {
-  if (!id) {
+exports.fetchUser = (username) => {
+  if (!username) {
     return Promise.reject({
       status: 400,
       msg: "Bad Request",
     });
   }
-  const userId = ref(db, `users/${id}`);
+  const userRef = ref(db, `users/${username}`);
 
-  return get(query(userId)).then((data) => {
+  return get(query(userRef)).then((data) => {
     if (data.exists()) {
       return data;
     } else {

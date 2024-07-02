@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 
-const { getUsers, getUserbyId, addUser, addCommunity, getCommunities } = require("./controllers/user.controller");
+const { getUsers, getUserbyUsername, addUser, addCommunity, getCommunities } = require("./controllers/user.controller");
 
 const app = express();
 app.use(cors());
@@ -11,7 +11,7 @@ app.get("/users", getUsers);
 
 app.get("/communities", getCommunities);
 
-app.get("/users/:id", getUserbyId);
+app.get("/users/:username", getUserbyUsername);
 
 app.post("/users", addUser);
 
