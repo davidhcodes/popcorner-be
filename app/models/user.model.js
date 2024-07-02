@@ -123,3 +123,20 @@ exports.fetchEvents = (title) => {
     }
   });
 };
+
+exports.addNewEvent = (community, title, description, logo, date, time, venue, moderators) => {
+  return new Promise((resolve, reject) => {
+    const eventRef = ref(db, `communities/${community}/events/${title}`);
+    set(eventRef, {
+      title,
+      description,
+      logo,
+      date,
+      time,
+      venue,
+      moderators,
+    }).then(() => {
+      resolve(title);
+    });
+  });
+};

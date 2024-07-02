@@ -8,6 +8,7 @@ const {
   addCommunity,
   getCommunities,
   getEvents,
+  addEvent,
 } = require("./controllers/user.controller");
 
 const app = express();
@@ -25,5 +26,7 @@ app.get("/communities/:title/events", getEvents);
 app.post("/users", addUser);
 
 app.post("/communities", addCommunity);
+
+app.post("/communities/:title/events", addEvent);
 
 module.exports = app;
