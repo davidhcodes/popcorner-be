@@ -1,5 +1,6 @@
 const express = require("express");
 const cors = require("cors");
+const { saveCinemasToFirebase } = require("./controllers/saveCinema.controller")
 
 const {
   getUsers,
@@ -28,5 +29,7 @@ app.post("/users", addUser);
 app.post("/communities", addCommunity);
 
 app.post("/communities/:title/events", addEvent);
+
+app.post("/cinemas", saveCinemasToFirebase)
 
 module.exports = app;
