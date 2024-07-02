@@ -61,13 +61,7 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
   });
 };
 
-exports.fetchCommunities = (communities) => {
-  if (!communities) {
-    return Promise.reject({
-      status: 400,
-      msg: "Bad Request",
-    });
-  }
+exports.fetchCommunities = () => {
   const communitiesRef = ref(db, "communities");
   return get(query(communitiesRef)).then((data) => {
     if (data.exists()) {
