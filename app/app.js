@@ -2,7 +2,7 @@ const express = require("express");
 const cors = require("cors");
 const { saveCinemasToFirebase } = require("./controllers/saveCinema.controller")
 const { getCinemas } = require("./controllers/getCinemas.controller")
-
+const { sendMessage } = require("./controllers/messages.controller")
 const {
     getUsers,
     getUserbyUsername,
@@ -34,5 +34,7 @@ app.post("/communities", addCommunity);
 app.post("/communities/:title/events", addEvent);
 
 app.post("/cinemas", saveCinemasToFirebase)
+
+app.post("/messages", sendMessage)
 
 module.exports = app;
