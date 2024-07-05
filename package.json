@@ -17,6 +17,7 @@
     "firebase": "^10.12.2",
     "firebase-admin": "^12.2.0",
     "firebase-tools": "^13.12.0",
+    "react-geocode": "^1.0.0-alpha.1",
     "vercel": "^34.2.8"
   }
 }
