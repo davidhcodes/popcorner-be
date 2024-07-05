@@ -29,11 +29,11 @@ app.get("/users/:username", getUserbyUsername);
 
 app.get("/communities/:title/events", getEvents);
 
-app.get("/cinemas", getCinemas);
+app.get("/cinemas/:location", getCinemas);
 
 app.get("/messages/:chats", getChatById);
 
-app.get("/geolocation/address", getLocations);
+app.get("/geolocation/:address", getLocations);
 
 app.post("/users", addUser);
 
