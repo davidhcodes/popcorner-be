@@ -6,6 +6,7 @@ const {
   addNewCommunity,
   fetchEvents,
   addNewEvent,
+  addNewPost,
 } = require("../models/user.model");
 
 exports.getUsers = (req, res) => {
@@ -34,8 +35,8 @@ exports.addUser = (req, res) => {
 };
 
 exports.addCommunity = (req, res) => {
-  const { title, description, logo, moderators } = req.body;
-  addNewCommunity(title, description, logo, moderators).then((communityName) => {
+  const { title, description, logo, moderators, members, memberCount } = req.body;
+  addNewCommunity(title, description, logo, moderators, members, memberCount).then((communityName) => {
     res.status(201).send({ msg: `community ${communityName} created` });
   });
 };
@@ -51,5 +52,13 @@ exports.addEvent = (req, res) => {
   const { title, description, logo, date, time, venue, moderators } = req.body;
   addNewEvent(community, title, description, logo, date, time, venue, moderators).then((eventName) => {
     res.status(201).send({ msg: `event ${eventName} created` });
+  });
+};
+
+exports.addPost = (req, res) => {
+  const community = req.params.title;
+  const { title, body, author, commentCount } = req.body;
+  addNewPost(community, title, body, author, commentCount).then((post) => {
+    res.status(201).send({ msg: `Post ${post} created` });
   });
 };

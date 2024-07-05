@@ -1,19 +1,17 @@
 const express = require("express");
 const cors = require("cors");
-const { saveCinemasToFirebase } = require("./controllers/saveCinema.controller")
-const { getCinemas } = require("./controllers/getCinemas.controller")
-const { 
-    sendMessage,
-     getChatById 
-} = require("./controllers/messages.controller")
+const { saveCinemasToFirebase } = require("./controllers/saveCinema.controller");
+const { getCinemas } = require("./controllers/getCinemas.controller");
+const { sendMessage, getChatById } = require("./controllers/messages.controller");
 const {
-    getUsers,
-    getUserbyUsername,
-    addUser,
-    addCommunity,
-    getCommunities,
-    getEvents,
-    addEvent,
+  getUsers,
+  getUserbyUsername,
+  addUser,
+  addCommunity,
+  getCommunities,
+  getEvents,
+  addEvent,
+  addPost,
 } = require("./controllers/user.controller");
 
 const app = express();
@@ -38,8 +36,10 @@ app.post("/communities", addCommunity);
 
 app.post("/communities/:title/events", addEvent);
 
-app.post("/cinemas", saveCinemasToFirebase)
+app.post("/cinemas", saveCinemasToFirebase);
 
-app.post("/messages", sendMessage)
+app.post("/messages", sendMessage);
+
+app.post("/communities/:title/posts", addPost);
 
 module.exports = app;

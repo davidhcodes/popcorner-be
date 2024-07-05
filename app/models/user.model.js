@@ -83,14 +83,20 @@ exports.fetchCommunities = () => {
   });
 };
 
-exports.addNewCommunity = (title, description, logo, moderators) => {
+exports.addNewCommunity = (title, description, logo, moderators, members, memberCount) => {
   return new Promise((resolve, reject) => {
+    if (!logo) {
+      logo =
+        "https://img.freepik.com/free-psd/trees-illustration-isolated_23-2151172259.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1717891200&semt=ais_user";
+    }
     const communityRef = ref(db, `communities/${title}`);
     set(communityRef, {
       title,
       description,
       logo,
       moderators,
+      members,
+      memberCount,
     })
       .then(() => {
         resolve(title);
@@ -136,6 +142,20 @@ exports.addNewEvent = (community, title, description, logo, date, time, venue, m
       time,
       venue,
       moderators,
+    }).then(() => {
+      resolve(title);
+    });
+  });
+};
+
+exports.addNewPost = (community, title, body, author, commentCount) => {
+  return new Promise((resolve, reject) => {
+    const postRef = ref(db, `communities/${community}/posts/${title}`);
+    set(postRef, {
+      title,
+      body,
+      author,
+      commentCount,
     }).then(() => {
       resolve(title);
     });
