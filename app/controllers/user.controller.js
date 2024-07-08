@@ -5,6 +5,7 @@ const {
   fetchCommunities,
   addNewCommunity,
   fetchEvents,
+  fetchEvent,
   addNewEvent,
   addNewPost,
 } = require("../models/user.model");
@@ -44,6 +45,13 @@ exports.addCommunity = (req, res) => {
 exports.getEvents = (req, res) => {
   fetchEvents(req.params.title).then((events) => {
     res.status(200).json(events);
+  });
+};
+
+exports.getEvent = (req, res) => {
+  fetchEvents(req.params.title, req.params.eventName).then((event) => {
+    if (!event) return res.status(404);
+    else res.status(200).json(event);
   });
 };
 

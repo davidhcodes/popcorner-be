@@ -131,6 +131,23 @@ exports.fetchEvents = (title) => {
   });
 };
 
+exports.fetchEvent = (title, eventName) => {
+  if (!title || !eventName) {
+    return Promise.reject({
+      status: 400,
+      msg: "Bad Request",
+    });
+  }
+  const eventRef = ref(db, `communities/${title}/events/${eventName}`);
+  return get(query(eventRef, orderByKey())).then((data) => {
+    if (data.exists()) {
+      return data.val();
+    } else {
+      return undefined;
+    }
+  });
+};
+
 exports.addNewEvent = (community, title, description, logo, date, time, venue, moderators) => {
   return new Promise((resolve, reject) => {
     const eventRef = ref(db, `communities/${community}/events/${title}`);
