@@ -5,7 +5,7 @@ const { getCinemas } = require("./controllers/getCinemas.controller");
 const { sendMessage, getChatById } = require("./controllers/messages.controller");
 const {
   getUsers,
-  getUserbyUsername,
+  getUserbyEmail,
   addUser,
   addCommunity,
   getCommunities,
@@ -23,7 +23,7 @@ app.get("/users", getUsers);
 
 app.get("/communities", getCommunities);
 
-app.get("/users/:username", getUserbyUsername);
+app.get("/users/:email", getUserbyEmail);
 
 app.get("/communities/:title/events", getEvents);
 

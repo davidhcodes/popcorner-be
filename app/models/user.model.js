@@ -20,14 +20,14 @@ exports.getAllUsers = () => {
     }
   });
 };
-exports.fetchUser = (username) => {
-  if (!username) {
+exports.fetchUser = (email) => {
+  if (!email) {
     return Promise.reject({
       status: 400,
       msg: "Bad Request",
     });
   }
-  const userRef = ref(db, `users/${username}`);
+  const userRef = ref(db, `users/${email}`);
 
   return get(query(userRef)).then((data) => {
     if (data.exists()) {
@@ -40,7 +40,7 @@ exports.fetchUser = (username) => {
 
 exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth, interests, password) => {
   return new Promise((resolve, reject) => {
-    const usersRef = ref(db, `users/${username}`);
+    const usersRef = ref(db, `users/${email}`);
 
     if (!avatar) {
       avatar = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR9UdkG68P9AHESMfKJ-2Ybi9pfnqX1tqx3wQ&s";
@@ -57,7 +57,7 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
       password,
     })
       .then(() => {
-        resolve(username);
+        resolve(email);
       })
       .catch((error) => {
         reject(error);

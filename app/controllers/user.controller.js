@@ -21,8 +21,8 @@ exports.getCommunities = (req, res) => {
   });
 };
 
-exports.getUserbyUsername = (req, res) => {
-  fetchUser(req.params.username).then((user) => {
+exports.getUserbyEmail = (req, res) => {
+  fetchUser(req.params.email).then((user) => {
     res.status(200).send({ user });
   });
 };
