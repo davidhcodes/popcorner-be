@@ -8,6 +8,8 @@ const {
   fetchEvent,
   addNewEvent,
   addNewPost,
+  addnewGrouChatptoUserObject,
+  removeGroupChatfromUser,
 } = require("../models/user.model");
 
 exports.getUsers = (req, res) => {
@@ -36,12 +38,30 @@ exports.addUser = (req, res) => {
   });
 };
 
+exports.updateUserGroups = (req, res) => {
+  const { chatId, chatName } = req.body;
+  const {email} = req.params;
+
+  addnewGrouChatptoUserObject(email, chatId, chatName).then(()=>{
+    res.status(201).send({msg: `The ${chatName} group chat has been added to the user's profile`})
+  })
+};
+
+exports.deleteUserGroup = (req, res) => {
+  const { chatId} = req.body;
+  const {email} = req.params;
+  removeGroupChatfromUser(email, chatId).then(()=>{
+    res.status(204)
+  })
+}
+
 exports.addCommunity = (req, res) => {
-  const { title, description, logo, moderators, members, memberCount } = req.body;
-  addNewCommunity(title, description, logo, moderators, members, memberCount).then((communityName) => {
+  const { title, description, logo, moderators, members, memberCount, chatId } = req.body;
+  addNewCommunity(title, description, logo, moderators, members, memberCount, chatId).then((communityName) => {
     res.status(201).send({ msg: `community ${communityName} created` });
   });
 };
+
 
 exports.getEvents = (req, res) => {
   fetchEvents(req.params.title).then((events) => {
