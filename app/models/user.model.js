@@ -105,7 +105,7 @@ exports.fetchCommunities = () => {
   });
 };
 
-exports.addNewCommunity = (title, description, logo, moderators, members, memberCount) => {
+exports.addNewCommunity = (title, description, logo, moderators, members, memberCount, chatId) => {
   return new Promise((resolve, reject) => {
     if (!logo) {
       logo =
@@ -119,6 +119,7 @@ exports.addNewCommunity = (title, description, logo, moderators, members, member
       moderators,
       members,
       memberCount,
+      chatId
     })
       .then(() => {
         resolve(title);

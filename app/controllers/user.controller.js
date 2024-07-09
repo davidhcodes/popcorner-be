@@ -56,8 +56,8 @@ exports.deleteUserGroup = (req, res) => {
 }
 
 exports.addCommunity = (req, res) => {
-  const { title, description, logo, moderators, members, memberCount } = req.body;
-  addNewCommunity(title, description, logo, moderators, members, memberCount).then((communityName) => {
+  const { title, description, logo, moderators, members, memberCount, chatId } = req.body;
+  addNewCommunity(title, description, logo, moderators, members, memberCount, chatId).then((communityName) => {
     res.status(201).send({ msg: `community ${communityName} created` });
   });
 };

@@ -22,6 +22,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+
 app.get("/users", getUsers);
 
 app.get("/communities", getCommunities);
@@ -38,8 +39,8 @@ app.get("/messages/:chats", getChatById);
 
 app.get("/geolocation/:address", getLocations);
 
-app.post("/users", addUser);
 
+app.post("/users", addUser);
 
 app.post("/communities", addCommunity);
 
@@ -51,7 +52,9 @@ app.post("/messages", sendMessage);
 
 app.post("/communities/:title/posts", addPost);
 
+
 app.patch("/users/:email/chat", updateUserGroups);
+
 
 app.delete("/users/:email/chat", deleteUserGroup)
 module.exports = app;
