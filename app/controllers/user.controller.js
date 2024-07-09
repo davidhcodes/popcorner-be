@@ -70,7 +70,7 @@ exports.getEvents = (req, res) => {
 };
 
 exports.getEvent = (req, res) => {
-  fetchEvents(req.params.title, req.params.eventName).then((event) => {
+  fetchEvent(req.params.title, req.params.eventName).then((event) => {
     if (!event) return res.status(404);
     else res.status(200).json(event);
   });
