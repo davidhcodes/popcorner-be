@@ -13,6 +13,7 @@ const {
   getEvent,
   addEvent,
   addPost,
+  addComment,
 } = require("./controllers/user.controller");
 const { getLocations } = require("./controllers/geocode.controller");
 
@@ -47,5 +48,7 @@ app.post("/cinemas", saveCinemasToFirebase);
 app.post("/messages", sendMessage);
 
 app.post("/communities/:title/posts", addPost);
+
+app.post("/communities/:title/posts/:post/comments", addComment);
 
 module.exports = app;

@@ -150,17 +150,29 @@ exports.fetchEvent = (title, eventName) => {
   });
 };
 
-exports.addNewEvent = (community, title, description, logo, date, time, venue, moderators) => {
+exports.addNewEvent = (
+  community,
+  title,
+  description,
+  logo,
+  date,
+  time,
+  venue,
+  moderators,
+  attendeeCount,
+  attendees
+) => {
   return new Promise((resolve, reject) => {
     const eventRef = ref(db, `communities/${community}/events/${title}`);
     set(eventRef, {
       title,
       description,
-      logo,
       date,
       time,
       venue,
       moderators,
+      attendeeCount,
+      attendees,
     }).then(() => {
       resolve(title);
     });
@@ -177,6 +189,19 @@ exports.addNewPost = (community, title, body, author, commentCount) => {
       commentCount,
     }).then(() => {
       resolve(title);
+    });
+  });
+};
+
+exports.addNewComment = (community, post, comment, author) => {
+  return new Promise((resolve, reject) => {
+    const commentRef = ref(db, `communities/${community}/posts/${post}/comments`);
+    const newCommentRef = push(commentRef);
+    set(newCommentRef, {
+      comment,
+      author,
+    }).then(() => {
+      resolve(comment);
     });
   });
 };
