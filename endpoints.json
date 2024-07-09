@@ -186,7 +186,15 @@
   "GET /geolocation/:address": {
     "description": "description",
     "queries": [],
-    "exampleResponse": {}
+    "exampleResponse": [
+      {
+        "address": "London, UK",
+        "location": {
+          "lat": 51.5072178,
+          "lng": -0.1275862
+        }
+      }
+    ]
   },
   "POST /users": {
     "description": "Creates a new user and adds it to the firebase",
@@ -231,6 +239,21 @@
       "Dress Code:": "Pink",
       "Event date": "07/07/2024"
       }
+    }
+  },
+  "PATCH /users/:email/chat": {
+    "description": "Adds a chatId to the 'Groupchat' section of the user object",
+    "queries": [],
+    "examplePostBody": {
+      "chatId": "w1ZB0yCh4T",
+      "chatName": "Hungry Hungry Badgers"
+    }
+  },
+  "DELETE /users/:email/chat": {
+    "description": "removes a chatId from the 'Groupchat' section of the user object",
+    "queries": [],
+    "examplePostBody": {
+      "chatId": "w1ZB0yCh4T"
     }
   }
 }
