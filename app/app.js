@@ -13,6 +13,8 @@ const {
   getEvent,
   addEvent,
   addPost,
+  updateUserGroups,
+  deleteUserGroup,
 } = require("./controllers/user.controller");
 const { getLocations } = require("./controllers/geocode.controller");
 
@@ -38,6 +40,7 @@ app.get("/geolocation/:address", getLocations);
 
 app.post("/users", addUser);
 
+
 app.post("/communities", addCommunity);
 
 app.post("/communities/:title/events", addEvent);
@@ -48,4 +51,7 @@ app.post("/messages", sendMessage);
 
 app.post("/communities/:title/posts", addPost);
 
+app.patch("/users/:email/chat", updateUserGroups);
+
+app.delete("/users/:email/chat", deleteUserGroup)
 module.exports = app;

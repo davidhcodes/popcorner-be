@@ -1,6 +1,6 @@
 // models/user.model.js
 const { db } = require("../../firebase");
-const { ref, get, query, orderByKey, push, set } = require("firebase/database");
+const { ref, get, query, orderByKey, push, set, remove} = require("firebase/database");
 
 exports.getAllUsers = () => {
   const usersRef = ref(db, "users");
@@ -28,7 +28,7 @@ exports.fetchUser = (email) => {
     });
   }
   console.log("the email,", email);
-  const userRef = ref(db, `users/${email}`);
+  const userGroupsRef = ref(db, `users/${email}`);
 
   return get(query(userRef)).then((data) => {
     if (data.exists()) {
@@ -66,6 +66,26 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
       });
   });
 };
+
+exports.addnewGrouChatptoUserObject = (email, chatId, chatName) => {
+  return new Promise((resolve, reject) => {
+  if (!email) {
+    return Promise.reject({
+      status: 400,
+      msg: "Bad Request",
+    });
+  }
+  const userGroupsRef = ref(db, `users/${email}/groupchats/${chatId}`)
+  set(userGroupsRef, chatName)
+  .then(()=>{
+    resolve(chatName);
+  })
+  .catch((error) => {
+    reject(error);
+  });
+})
+
+}
 
 exports.fetchCommunities = () => {
   const communitiesRef = ref(db, "communities");
@@ -109,6 +129,24 @@ exports.addNewCommunity = (title, description, logo, moderators, members, member
   });
 };
 
+exports.removeGroupChatfromUser = (email, chatId) =>{
+  return new Promise((resolve, reject) => {
+    if (!email) {
+      return Promise.reject({
+        status: 400,
+        msg: "Bad Request",
+      });
+    }
+    const userGroupRef = ref(db, `users/${email}/groupchats/${chatId}`)
+    remove(userGroupRef)
+    .then(()=>{
+      resolve();
+    })
+    .catch((error) => {
+      reject(error);
+    });
+  })
+}
 exports.fetchEvents = (title) => {
   if (!title) {
     return Promise.reject({
