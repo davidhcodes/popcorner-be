@@ -10,6 +10,7 @@ const {
   addCommunity,
   getCommunities,
   getEvents,
+  getEvent,
   addEvent,
   addPost,
 } = require("./controllers/user.controller");
@@ -26,6 +27,8 @@ app.get("/communities", getCommunities);
 app.get("/users/:email", getUserbyEmail);
 
 app.get("/communities/:title/events", getEvents);
+
+app.get("/communities/:title/events/:eventName", getEvent);
 
 app.get("/cinemas/:location", getCinemas);
 
