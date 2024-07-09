@@ -30,6 +30,7 @@ exports.getUserbyEmail = (req, res) => {
 exports.addUser = (req, res) => {
   const { username, avatar, firstName, lastName, email, dateOfBirth, interests, password } = req.body;
   addNewUser(username, avatar, firstName, lastName, email, dateOfBirth, interests, password).then((email) => {
+    console.log("in the controller");
     res.status(201).send({ msg: `user ${email} created` });
   });
 };

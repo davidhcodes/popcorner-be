@@ -27,6 +27,7 @@ exports.fetchUser = (email) => {
       msg: "Bad Request",
     });
   }
+  console.log("the email,", email);
   const userRef = ref(db, `users/${email}`);
 
   return get(query(userRef)).then((data) => {
@@ -57,6 +58,7 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
       password,
     })
       .then(() => {
+        console.log("in the model");
         resolve(email);
       })
       .catch((error) => {
