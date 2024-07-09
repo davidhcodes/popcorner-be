@@ -23,6 +23,9 @@
           "02": "Quentin Tarantino",
           "03": "Jennifer Lawrence"
         },
+        "groupchats": {
+          "chatId": "Chat Name"
+        },
         "isBannedFrom": {
           "ev006": "Wonder Woman Rutland Ciniplex "
         },
@@ -51,7 +54,7 @@
       }
     ]
   },
-  "GET user/:username": {
+  "GET user/:email": {
     "description": "responds with an object for a specific user",
     "queries": [],
     "exampleResponse": {
@@ -90,6 +93,101 @@
       }
     }
   },
+  "GET /communities": {
+    "description": "Returns the a json object of all community groups in the database",
+    "queries": [],
+    "exampleResponse": [
+      {
+        "Desktop NovaVirus": {
+          "description": "Deep freeze your CPU , for free! ",
+          "logo": "https://img.freepik.com/free-psd/trees-illustration-isolated_23-2151172259.jpg?size=338&ext=jpg&ga=GA1.1.1141335507.1717891200&semt=ais_user",
+          "memberCount": 1,
+          "members": [
+            "charley"
+          ],
+          "moderators": [
+            "charley"
+          ],
+          "posts": {
+            "The virus ": {
+              "author": "charley",
+              "body": "Enslaves all",
+              "commentCount": 0,
+              "title": "The virus "
+            }
+          },
+          "title": "Desktop NovaVirus"
+        }
+      }
+        ]
+  },
+  "GET communities/:title/events": {
+    "description": "Gets all the events regisitered to a community",
+    "queries": [],
+    "exampleResponse": [
+      {
+        "Hhhhh": {
+          "attendeeCount": 1,
+          "attendees": [
+            "charley"
+          ],
+          "date": "Bbhhh",
+          "description": "Bhhhhh",
+          "moderators": "charley",
+          "time": "Hhhhhhh",
+          "title": "Hhhhh",
+          "venue": "Bbgggg"
+        }
+      },
+      {
+        "LizardTime": {
+          "attendeeCount": 10,
+          "attendees": {
+            "001": "david"
+          },
+          "bannedUsers": {
+            "001 ": "david"
+          },
+          "date": "01/11/2024",
+          "description": "The first ever lizard time",
+          "time": "12:00",
+          "title": "Lizard Time",
+          "venue": "Lizard Cineplex"
+        }
+      }
+    ]
+  },
+  "GET /communities/:title/events/:eventName": {
+    "description": "Retrieves an specific event from a community page",
+    "queries": [],
+    "exampleResponse": {
+      "LizardTime": {
+        "attendeeCount": 10,
+        "attendees": {
+          "001": "david"
+        },
+        "bannedUsers": {
+          "001 ": "david"
+        },
+        "date": "01/11/2024",
+        "description": "The first ever lizard time",
+        "time": "12:00",
+        "title": "Lizard Time",
+        "venue": "Lizard Cineplex"
+      }
+    }
+
+  },
+  "GET /cinemas/:location": {
+    "description": "Finds all cinemas within a specified area",
+    "queries": [],
+    "exampleResponse": {}
+  },
+  "GET /geolocation/:address": {
+    "description": "description",
+    "queries": [],
+    "exampleResponse": {}
+  },
   "POST /users": {
     "description": "Creates a new user and adds it to the firebase",
     "queries": [],
@@ -105,6 +203,33 @@
         "01": "coding",
         "02": "Lizard stuff",
         "03": "Sausage parties"
+      }
+    }
+  },
+  "POST /communities": {
+    "description": "Posts a new community to the database.",
+    "queries": [],
+    "examplePostBody":  {
+      "title": "Low poly pigeon Club",
+      "description": "for lonely hearts with a shallow love for pretty little sky rats",
+      "logo": "https://pbs.twimg.com/media/FS0tzhYVsAAOKcY.jpg",
+      "moderators": {"title": "NikolaTesla"},
+      "members": ["NikolaTesla", "JimRummytheCabbagePatchKid"],
+      "memberCount": 2,
+      "chatId": "pidgeonId"
+      
+    }
+  },
+  "POST /communities/:title/events": {
+    "description": "Adds a new event to a specific community page",
+    "queries": [],
+    "examplePostBody": {
+      "Mean Girls Fancy Dress Event": {
+      "Attending:": 14,
+      "Created": "01/07/2024",
+      "Description:": "",
+      "Dress Code:": "Pink",
+      "Event date": "07/07/2024"
       }
     }
   }

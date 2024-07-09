@@ -28,7 +28,7 @@ exports.fetchUser = (email) => {
     });
   }
   console.log("the email,", email);
-  const userGroupsRef = ref(db, `users/${email}`);
+  const userRef = ref(db, `users/${email}`);
 
   return get(query(userRef)).then((data) => {
     if (data.exists()) {
