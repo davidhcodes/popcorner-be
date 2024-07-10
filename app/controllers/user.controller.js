@@ -11,6 +11,9 @@ const {
   addNewComment,
   addnewGrouChatptoUserObject,
   removeGroupChatfromUser,
+  addNewMember,
+  addNewCommunityToUser,
+  addNewEventToUser,
 } = require("../models/user.model");
 
 exports.getUsers = (req, res) => {
@@ -101,5 +104,29 @@ exports.addComment = (req, res) => {
   const { comment, author } = req.body;
   addNewComment(community, post, comment, author).then((newComment) => {
     res.status(201).send({ msg: `Comment ${newComment} created` });
+  });
+};
+
+exports.addMember = (req, res) => {
+  const community = req.params.title;
+  const { user } = req.body;
+  addNewMember(community, user).then(() => {
+    res.status(200).send({ msg: `${user} added to ${community}` });
+  });
+};
+
+exports.addCommunityToUser = (req, res) => {
+  const user = req.params.user;
+  const { community } = req.body;
+  addNewCommunityToUser(user, community).then(() => {
+    res.status(200).send({ msg: `${community} added to ${user}` });
+  });
+};
+
+exports.addEventToUser = (req, res) => {
+  const user = req.params.user;
+  const { event } = req.body;
+  addNewEventToUser(user, event).then(() => {
+    res.status(200).send({ msg: `${event} added to ${user}` });
   });
 };

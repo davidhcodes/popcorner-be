@@ -1,6 +1,6 @@
 // models/user.model.js
 const { db } = require("../../firebase");
-const { ref, get, query, orderByKey, push, set, remove} = require("firebase/database");
+const { ref, get, query, orderByKey, push, set, remove, update } = require("firebase/database");
 
 exports.getAllUsers = () => {
   const usersRef = ref(db, "users");
@@ -69,23 +69,22 @@ exports.addNewUser = (username, avatar, firstName, lastName, email, dateOfBirth,
 
 exports.addnewGrouChatptoUserObject = (email, chatId, chatName) => {
   return new Promise((resolve, reject) => {
-  if (!email) {
-    return Promise.reject({
-      status: 400,
-      msg: "Bad Request",
-    });
-  }
-  const userGroupsRef = ref(db, `users/${email}/groupchats/${chatId}`)
-  set(userGroupsRef, chatName)
-  .then(()=>{
-    resolve(chatName);
-  })
-  .catch((error) => {
-    reject(error);
+    if (!email) {
+      return Promise.reject({
+        status: 400,
+        msg: "Bad Request",
+      });
+    }
+    const userGroupsRef = ref(db, `users/${email}/groupchats/${chatId}`);
+    set(userGroupsRef, chatName)
+      .then(() => {
+        resolve(chatName);
+      })
+      .catch((error) => {
+        reject(error);
+      });
   });
-})
-
-}
+};
 
 exports.fetchCommunities = () => {
   const communitiesRef = ref(db, "communities");
@@ -119,7 +118,7 @@ exports.addNewCommunity = (title, description, logo, moderators, members, member
       moderators,
       members,
       memberCount,
-      chatId
+      chatId,
     })
       .then(() => {
         resolve(title);
@@ -130,7 +129,7 @@ exports.addNewCommunity = (title, description, logo, moderators, members, member
   });
 };
 
-exports.removeGroupChatfromUser = (email, chatId) =>{
+exports.removeGroupChatfromUser = (email, chatId) => {
   return new Promise((resolve, reject) => {
     if (!email) {
       return Promise.reject({
@@ -138,16 +137,16 @@ exports.removeGroupChatfromUser = (email, chatId) =>{
         msg: "Bad Request",
       });
     }
-    const userGroupRef = ref(db, `users/${email}/groupchats/${chatId}`)
+    const userGroupRef = ref(db, `users/${email}/groupchats/${chatId}`);
     remove(userGroupRef)
-    .then(()=>{
-      resolve();
-    })
-    .catch((error) => {
-      reject(error);
-    });
-  })
-}
+      .then(() => {
+        resolve();
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
 exports.fetchEvents = (title) => {
   if (!title) {
     return Promise.reject({
@@ -241,6 +240,59 @@ exports.addNewComment = (community, post, comment, author) => {
       author,
     }).then(() => {
       resolve(comment);
+    });
+  });
+};
+
+exports.addNewMember = (title, member) => {
+  return new Promise((resolve, reject) => {
+    const communityRef = ref(db, `communities/${title}`);
+
+    get(communityRef)
+      .then((snapshot) => {
+        if (snapshot.exists()) {
+          const community = snapshot.val();
+
+          community.members[Date.now()] = member;
+          community.memberCount = community.memberCount + 1;
+
+          set(communityRef, community)
+            .then(() => {
+              resolve();
+            })
+            .catch((error) => {
+              reject(error);
+            });
+        } else {
+          reject(new Error("Community does not exist"));
+        }
+      })
+      .catch((error) => {
+        reject(error);
+      });
+  });
+};
+
+exports.addNewCommunityToUser = (user, community) => {
+  return new Promise((resolve, reject) => {
+    const userRef = ref(db, `users/${user}/communities`);
+    const time = Date.now().toString();
+    update(userRef, {
+      [time]: community,
+    }).then(() => {
+      resolve();
+    });
+  });
+};
+
+exports.addNewEventToUser = (user, event) => {
+  return new Promise((resolve, reject) => {
+    const userRef = ref(db, `users/${user}/events`);
+    const time = Date.now().toString();
+    update(userRef, {
+      [time]: event,
+    }).then(() => {
+      resolve();
     });
   });
 };
